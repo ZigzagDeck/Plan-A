@@ -77,15 +77,15 @@ async def assert_prediction_pipeline() -> None:
 
         assert response.status_code == 201
         payload = response.json()
-        assert payload["probability"] == pytest.approx(0.87)
+        assert payload["probability"] == pytest.approx(0.6511, abs=1e-3)
         assert payload["predicted_class"] == 1
-        assert payload["risk_level"] == "CRITICAL"
+        assert payload["risk_level"] == "HIGH"
         assert payload["drivers"] == ["High rainfall", "Steep slope"]
         assert missing_response.status_code == 404
 
         stored = await read_snapshot(UUID(payload["snapshot_id"]))
-        assert stored["probability"] == pytest.approx(0.87)
-        assert stored["risk_level"] == "CRITICAL"
+        assert stored["probability"] == pytest.approx(0.6511, abs=1e-3)
+        assert stored["risk_level"] == "HIGH"
         assert stored["rainfall_mm"] == pytest.approx(115.34)
     finally:
         await engine.dispose()

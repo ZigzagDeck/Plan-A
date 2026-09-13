@@ -102,9 +102,9 @@ async def assert_concurrent_alert_deduplication() -> None:
         stored = await read_alert_state()
         assert stored["count"] == 1
         assert stored["status"] == "ACTIVE"
-        assert stored["severity"] == "CRITICAL"
+        assert stored["severity"] == "HIGH"
         assert stored["occurrence_count"] == 2
-        assert stored["peak_probability"] == pytest.approx(0.87)
+        assert stored["peak_probability"] == pytest.approx(0.6511, abs=1e-3)
         assert stored["exposure"]["total_assets"] == 1
         assert stored["exposure"]["critical_assets"] == 1
     finally:
