@@ -48,7 +48,11 @@ class ArtifactModelGateway:
         if not expected_hash or self._sha256(self._model_path) != expected_hash:
             raise ModelArtifactError("model artifact checksum does not match its manifest")
 
-        self._model = joblib.load(self._model_path)
+        import warnings
+
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", category=UserWarning)
+            self._model = joblib.load(self._model_path)
         model_features = tuple(getattr(self._model, "feature_names_in_", ()))
         if model_features != self._feature_names:
             raise ModelArtifactError("loaded model feature order does not match its manifest")
