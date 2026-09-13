@@ -1,4 +1,4 @@
-# Plan-A: Geospatial Landslide Risk & Early-Warning Platform
+# SlopeGuard: Geospatial Landslide Risk & Early-Warning Platform
 ## Comprehensive Technical Report & Presentation Guide
 
 ---
@@ -16,8 +16,8 @@ Traditional approaches suffer from critical operational limitations:
 3. **Data Leakage in Academic Prototypes**: Many published models report artificially inflated accuracies because random train-test splitting leaks spatially correlated samples from the same hill slope into both training and validation sets.
 4. **Lack of End-to-End Decision Support**: Academic models rarely connect to real-time alert engines, exposure buffers (schools, hospitals, bridges), or interactive GIS dashboards for operators.
 
-### The Plan-A Solution
-**Plan-A** is an end-to-end, operational early-warning platform that bridges the gap between state-of-the-art machine learning, geospatial GIS indexing, and real-time emergency dispatch. It continuously ingests field telemetry, predicts landslide failure probabilities using an **8-variable Random Forest model**, evaluates exposure to critical infrastructure within a 2-kilometer hazard radius, and broadcasts live alerts over WebSockets and mobile push channels.
+### The SlopeGuard Solution
+**SlopeGuard** is an end-to-end, operational early-warning platform that bridges the gap between state-of-the-art machine learning, geospatial GIS indexing, and real-time emergency dispatch. It continuously ingests field telemetry, predicts landslide failure probabilities using an **8-variable Random Forest model**, evaluates exposure to critical infrastructure within a 2-kilometer hazard radius, and broadcasts live alerts over WebSockets and mobile push channels.
 
 ---
 
@@ -122,8 +122,9 @@ graph TD
 
 ### Feature 5: Streamlit GIS Early-Warning Dashboard (`frontend/`)
 Engineered with an ultra-modern dark glassmorphism design:
-- **Tab 1 (Geospatial Command Center)**: Fullscreen Folium map with satellite/terrain toggle, color-coded risk polygons (Green, Yellow, Orange, Red), 2km buffer rings, and cell inspector sidebar.
-- **Tab 2 (ML Real-Time Prediction Studio)**: 8 interactive sliders, scenario presets (Dry Season, Monsoon Downpour, Extreme Cloudburst), real-time Plotly speedometer gauge dials, and driver explanations.
+- **Anti-Dimming & Circling Buffer Engine**: Custom CSS completely prevents the screen from dimming or greying out during calculations; replaces default stale fading with a smooth, glowing circular buffering spinner animation.
+- **Tab 1 (Geospatial Command Center)**: Fullscreen Folium map with satellite/terrain toggle, color-coded risk polygons (Green, Yellow, Orange, Red), 2km buffer rings, and cell inspector with direct recalculation.
+- **Tab 2 (ML Real-Time Prediction Studio)**: 8 interactive sliders, scenario presets (Dry Season, Monsoon Downpour, Extreme Cloudburst), prominent circular buffering loader, real-time Plotly speedometer gauge dials, and driver explanations.
 - **Tab 3 (Monsoon Simulator & Ops)**: Multiplier slider, sensitivity response curve, and field observation ingestion tool.
 - **Tab 4 (Alert Lifecycle & Dispatch)**: Incident stream with operator action buttons (`Acknowledge`, `Verify`, `Resolve`), audit log tracker, and mobile push subscription manager.
 - **Tab 5 (Model Manifest Analytics)**: Model parameters, holdout confusion matrix, feature importance rankings, and spatial split statistics.
@@ -148,7 +149,7 @@ Engineered with an ultra-modern dark glassmorphism design:
 
 # Part 2: How to Explain in a Presentation
 
-Use this step-by-step structure to pitch and demonstrate Plan-A to judges, faculty, or technical evaluators.
+Use this step-by-step structure to pitch and demonstrate SlopeGuard to judges, faculty, or technical evaluators.
 
 ```text
 Timing Guide: 7-10 Minutes Total
@@ -164,39 +165,39 @@ Timing Guide: 7-10 Minutes Total
 ## Slide-by-Slide Presentation Outline & Speaker Script
 
 ### Slide 1: Title & Vision
-- **Slide Content**: Project Title: **Plan-A: Geospatial Landslide Early-Warning System**. Subtitle: *Predictive Geospatial Intelligence & Real-Time Alert Engine for Northeast India*.
+- **Slide Content**: Project Title: **SlopeGuard: Geospatial Landslide Early-Warning System**. Subtitle: *Predictive Geospatial Intelligence & Real-Time Alert Engine for Northeast India*.
 - **Speaker Script**:
-  > *"Good morning/afternoon, everyone. In the mountainous terrain of Northeast India, landslides are not just geological hazards—they are economic and humanitarian crises that sever lifeline highways and cut off entire districts every monsoon. Today, we are presenting Plan-A, an operational geospatial platform that combines 8-factor machine learning, PostGIS spatial intelligence, and automated early-warning dispatch."*
+  > *"Good morning/afternoon, everyone. In the mountainous terrain of Northeast India, landslides are not just geological hazards—they are economic and humanitarian crises that sever lifeline highways and cut off entire districts every monsoon. Today, we are presenting SlopeGuard, an operational geospatial platform that combines 8-factor machine learning, PostGIS spatial intelligence, and automated early-warning dispatch."*
 
 ---
 
 ### Slide 2: The Core Problem: Why Traditional Systems Fail
 - **Slide Content**: Bullet points: (1) Rainfall-only rules miss slope & soil physics; (2) Spatial data leakage in academic models; (3) Slow, uncoordinated alert dispatch.
 - **Speaker Script**:
-  > *"Traditional landslide warnings usually look at one thing: rainfall amount. But a gentle slope and a 50-degree mountain face behave completely differently under the same downpour. Furthermore, existing research models often suffer from spatial data leakage—evaluating nearby samples from the same slope to claim 95% accuracy that fails in real-world deployment. Plan-A solves this with rigorous spatial group holdout validation and a complete multi-factor physical model."*
+  > *"Traditional landslide warnings usually look at one thing: rainfall amount. But a gentle slope and a 50-degree mountain face behave completely differently under the same downpour. Furthermore, existing research models often suffer from spatial data leakage—evaluating nearby samples from the same slope to claim 95% accuracy that fails in real-world deployment. SlopeGuard solves this with rigorous spatial group holdout validation and a complete multi-factor physical model."*
 
 ---
 
 ### Slide 3: The 8-Factor Random Forest ML Engine
 - **Slide Content**: Diagram showing the 8 features grouped into Topography, Hydrology, Geotechnical Soil, and Reanalysis, highlighting Elevation (23.8%) and Slope (17.4%).
 - **Speaker Script**:
-  > *"Instead of a mock heuristic, Plan-A runs a production Random Forest model trained on GSI records across Arunachal Pradesh. It fuses 8 physical variables: Elevation, Slope, Aspect, Daily Rainfall, 7-day Antecedent Rainfall, ERA5 Event precipitation, and Soil Clay vs. Sand percentages. The model is checksum-verified with SHA-256 on startup and achieves a 0.78 ROC-AUC score under strict spatial holdout."*
+  > *"Instead of a mock heuristic, SlopeGuard runs a production Random Forest model trained on GSI records across Arunachal Pradesh. It fuses 8 physical variables: Elevation, Slope, Aspect, Daily Rainfall, 7-day Antecedent Rainfall, ERA5 Event precipitation, and Soil Clay vs. Sand percentages. The model is checksum-verified with SHA-256 on startup and achieves a 0.78 ROC-AUC score under strict spatial holdout."*
 
 ---
 
 ### Slide 4: Real-Time PostGIS Exposure Engine
 - **Slide Content**: Visual showing a risk cell polygon, a 2,000-meter buffer circle, and icons for schools, hospitals, bridges, highways, and substations.
 - **Speaker Script**:
-  > *"Predicting a landslide score is only half the battle. A landslide in an uninhabited forest is a natural event; a landslide adjacent to a school or hospital is a humanitarian disaster. Plan-A's PostGIS spatial engine computes real-time 2-kilometer exposure buffers around triggering cells, automatically identifying vulnerable infrastructure for targeted evacuation."*
+  > *"Predicting a landslide score is only half the battle. A landslide in an uninhabited forest is a natural event; a landslide adjacent to a school or hospital is a humanitarian disaster. SlopeGuard's PostGIS spatial engine computes real-time 2-kilometer exposure buffers around triggering cells, automatically identifying vulnerable infrastructure for targeted evacuation."*
 
 ---
 
 ### Slide 5: Live Demonstration (Switch to Browser)
 - **Action**: Open [http://localhost:8501](http://localhost:8501) on the screen.
 - **Step 1: Command Center Map**:
-  > *"Here is the Plan-A Command Center. On this interactive GIS map of Papum Pare and Lower Subansiri in Arunachal Pradesh, you can see monitored grid cells colored by risk tier, alongside critical infrastructure like the Dikrong River Bridge and National Highway NH-13."*
+  > *"Here is the SlopeGuard Command Center. On this interactive GIS map of Papum Pare and Lower Subansiri in Arunachal Pradesh, you can see monitored grid cells colored by risk tier, alongside critical infrastructure like the Dikrong River Bridge and National Highway NH-13."*
 - **Step 2: ML Prediction Studio**:
-  > *"Let's switch to the ML Prediction Studio. I'll load an 'Active Monsoon Surge' scenario with 185mm rainfall, 42-degree slope, and high clay content. When I click 'Compute', our Random Forest model executes inference in milliseconds. Notice the speedometer dial reading 59.8%, the MEDIUM classification, and the transparent driver badges highlighting 'High rainfall' and 'Steep slope'."*
+  > *"Let's switch to the ML Prediction Studio. I'll load an 'Active Monsoon Surge' scenario with 185mm rainfall, 42-degree slope, and high clay content. Notice when I click 'Calculate Chance of Landslide'—instead of the screen dimming or freezing, a smooth, glowing circular buffering indicator appears while our Random Forest model executes inference in milliseconds. The Plotly speedometer dial updates to 59.8%, and transparent driver badges explain that high rainfall and steep slope drove the classification."*
 - **Step 3: Monsoon Rainfall Simulator**:
   > *"In the Simulator, we can stress-test the slope. Increasing the monsoon multiplier to 2.5x simulates a cloudburst. Watch the sensitivity curve: it pinpointed the exact rainfall tipping point where the cell escalates into HIGH and CRITICAL risk."*
 - **Step 4: Alert Lifecycle & Dispatch**:
@@ -207,14 +208,14 @@ Timing Guide: 7-10 Minutes Total
 ### Slide 6: System Reliability, Verification & CI/CD
 - **Slide Content**: Badges: 62 Backend Tests, 3 ML Tests, PostGIS Migrations, 100% Green GitHub Actions CI.
 - **Speaker Script**:
-  > *"To ensure mission-critical reliability, Plan-A includes automated test suites covering everything from model manifest integrity to asynchronous sensor observation claiming. All tests, linting rules, and Docker container builds pass with 100% green status on GitHub Actions CI."*
+  > *"To ensure mission-critical reliability, SlopeGuard includes automated test suites covering everything from model manifest integrity to asynchronous sensor observation claiming. All tests, linting rules, and Docker container builds pass with 100% green status on GitHub Actions CI."*
 
 ---
 
 ### Slide 7: Conclusion & Future Roadmap
 - **Slide Content**: Summary of achievements, IoT sensor integration, edge deployment on solar-powered mountain hubs.
 - **Speaker Script**:
-  > *"In summary, Plan-A bridges machine learning science with emergency management operations. It provides explainable, reproducible, and real-time hazard intelligence to save lives and protect critical infrastructure. Thank you, and we welcome your questions."*
+  > *"In summary, SlopeGuard bridges machine learning science with emergency management operations. It provides explainable, reproducible, and real-time hazard intelligence to save lives and protect critical infrastructure. Thank you, and we welcome your questions."*
 
 ---
 
@@ -224,10 +225,10 @@ Timing Guide: 7-10 Minutes Total
 > **Answer**: *"For tabular geospatial data with complex non-linear feature interactions and high physical interpretability requirements, tree ensembles like Random Forest consistently outperform deep networks. Furthermore, Random Forest produces well-ranked probability estimates without requiring immense compute, allowing it to run inference in sub-millisecond latencies directly on emergency gateway hardware."*
 
 #### Q2: "What is 'Spatial Group Holdout' and why does it matter?"
-> **Answer**: *"In spatial modeling, nearby samples share common geology and weather—known as spatial autocorrelation. If you use a random 80/20 row split, points from the same mountain slope appear in both training and testing, leading to inflated, artificial test scores. Plan-A partitions data by 0.25-degree spatial cells (~27 km), ensuring that the test set evaluates the model on completely unseen terrain cells. This guarantees true operational generalization."*
+> **Answer**: *"In spatial modeling, nearby samples share common geology and weather—known as spatial autocorrelation. If you use a random 80/20 row split, points from the same mountain slope appear in both training and testing, leading to inflated, artificial test scores. SlopeGuard partitions data by 0.25-degree spatial cells (~27 km), ensuring that the test set evaluates the model on completely unseen terrain cells. This guarantees true operational generalization."*
 
 #### Q3: "What happens if local field sensors stop sending data during a severe storm?"
-> **Answer**: *"Plan-A's ArtifactModelGateway is designed with fault tolerance: if optional antecedent or soil inputs are omitted, it automatically falls back to reviewed training medians recorded in the model manifest, enabling reduced-context inference without crashing."*
+> **Answer**: *"SlopeGuard's ArtifactModelGateway is designed with fault tolerance: if optional antecedent or soil inputs are omitted, it automatically falls back to reviewed training medians recorded in the model manifest, enabling reduced-context inference without crashing."*
 
-#### Q4: "How does Plan-A prevent alarm fatigue from repeatedly firing alerts?"
+#### Q4: "How does SlopeGuard prevent alarm fatigue from repeatedly firing alerts?"
 > **Answer**: *"The Alert Engine implements a configurable 30-minute deduplication cooldown. Repeated sensor readings within the cooldown window are marked as SUPPRESSED. However, if the risk level escalates from HIGH to CRITICAL, the state machine overrides the cooldown immediately, marking the action as ESCALATED and alerting field teams without delay."*

@@ -1,4 +1,4 @@
-"""GIS Map Visualizer for Plan-A Streamlit Dashboard.
+"""GIS Map Visualizer for SlopeGuard Streamlit Dashboard.
 Renders interactive maps showing landslide risk cells and exposed infrastructure.
 """
 

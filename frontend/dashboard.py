@@ -1,4 +1,4 @@
-"""Plan-A: Geospatial Landslide Risk & Early-Warning Dashboard
+"""SlopeGuard: Geospatial Landslide Risk & Early-Warning Dashboard
 Built with Streamlit, Plotly, and Folium.
 Integrated with the actual Random Forest ML artifact and FastAPI early-warning backend.
 """
@@ -20,7 +20,7 @@ from components.api_client import (
     DEFAULT_API_URL,
     SAMPLE_ASSETS,
     SAMPLE_CELLS,
-    PlanAClient,
+    SlopeGuardClient,
 )
 from components.charts import (
     create_confusion_matrix_chart,
@@ -33,7 +33,7 @@ from components.styles import apply_custom_styles
 
 # Page configuration
 st.set_page_config(
-    page_title="Plan-A | Landslide Early-Warning System",
+    page_title="SlopeGuard | Landslide Early-Warning System",
     page_icon="🏔️",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -46,7 +46,7 @@ st.markdown(apply_custom_styles(), unsafe_allow_html=True)
 if "api_url" not in st.session_state:
     st.session_state.api_url = DEFAULT_API_URL
 
-client = PlanAClient(base_url=st.session_state.api_url)
+client = SlopeGuardClient(base_url=st.session_state.api_url)
 
 # In-memory alert state storage for demo / backend sync
 if "local_alerts" not in st.session_state:
@@ -105,7 +105,7 @@ for c in SAMPLE_CELLS:
 
 # ----------------- SIDEBAR -----------------
 with st.sidebar:
-    st.markdown("### 🏔️ **Plan-A Control Hub**")
+    st.markdown("### 🏔️ **SlopeGuard Control Hub**")
     st.markdown("Geospatial early-warning & risk mitigation platform.")
 
     health = client.check_health()
@@ -145,10 +145,10 @@ with st.sidebar:
         - **Holdout ROC-AUC**: 0.7769
         """
     )
-    st.caption("Plan-A Core ML Engine v0.2.0")
+    st.caption("SlopeGuard Core ML Engine v0.2.0")
 
 # ----------------- MAIN HEADER -----------------
-st.markdown('<div class="main-header">Plan-A Landslide Early-Warning System</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">SlopeGuard: Landslide Early-Warning System</div>', unsafe_allow_html=True)
 st.markdown(
     '<div class="sub-header">Production Geospatial Decision-Support Platform with Real ML Random Forest Inference & Real-Time Alert Engine</div>',
     unsafe_allow_html=True,
@@ -244,6 +244,32 @@ with tab1:
         gauge_fig = create_gauge_chart(cur_prob, cur_level)
         st.plotly_chart(gauge_fig, use_container_width=True, key="tab1_gauge_chart")
 
+        if st.button("🔮 **Calculate Chance of Landslide**", use_container_width=True, key="tab1_calc_btn"):
+            tab1_buf = st.empty()
+            tab1_buf.markdown(
+                """
+                <div class="circular-buffer-container" style="padding: 22px 14px; margin: 12px 0;">
+                    <div class="circular-buffer-spinner" style="width: 52px; height: 52px; margin-bottom: 12px;"></div>
+                    <div class="circular-buffer-title" style="font-size: 1.05rem;">Calculating Chance of Landslide...</div>
+                    <div class="circular-buffer-subtitle" style="font-size: 0.82rem;">Running Random Forest inference for cell</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            import time
+            time.sleep(0.45)
+            tab1_res = client.direct_predict(
+                latitude=selected_cell["latitude"],
+                longitude=selected_cell["longitude"],
+                elevation_m=selected_cell["elevation_m"],
+                slope_deg=selected_cell["slope_deg"],
+                aspect_deg=selected_cell["aspect_deg"],
+                rainfall_mm=selected_cell["baseline_rainfall_mm"],
+            )
+            cell_risks[selected_cell_code] = tab1_res
+            tab1_buf.empty()
+            st.rerun()
+
         st.markdown("##### ⛰️ **Terrain Characteristics**")
         st.markdown(
             f"""
@@ -261,6 +287,7 @@ with tab1:
                 st.markdown(f"• **{exp['name']}** ({exp['type']})")
         else:
             st.caption("No registered critical infrastructure within direct boundary.")
+
 
 # ==================== TAB 2: ML PREDICTION STUDIO ====================
 with tab2:
@@ -318,30 +345,45 @@ with tab2:
         exec_mode = st.selectbox("Execution Mode", ["Direct Model Artifact", "FastAPI Backend (/api/v1/predict)"])
 
     # Run Prediction
-    if st.button("🚀 **Compute Landslide Risk Prediction**", type="primary", use_container_width=True):
-        with st.spinner("Executing Random Forest inference pipeline..."):
-            if exec_mode == "Direct Model Artifact":
-                pred_result = client.direct_predict(
-                    latitude=selected_cell["latitude"],
-                    longitude=selected_cell["longitude"],
-                    elevation_m=in_elev,
-                    slope_deg=in_slope,
-                    aspect_deg=in_aspect,
-                    rainfall_mm=in_rain,
-                    rainfall_7day_antecedent_mm=in_ante,
-                    rainfall_event_era5_mm=in_era5,
-                    soil_clay_pct=in_clay,
-                    soil_sand_pct=in_sand,
-                )
-            else:
-                pred_result = client.predict_via_api(
-                    cell_code=selected_cell_code,
-                    rainfall_mm=in_rain,
-                    rainfall_7day=in_ante,
-                    rainfall_era5=in_era5,
-                    soil_clay=in_clay,
-                    soil_sand=in_sand,
-                )
+    if st.button("🔮 **Calculate Chance of Landslide**", type="primary", use_container_width=True):
+        buf_ph = st.empty()
+        buf_ph.markdown(
+            """
+            <div class="circular-buffer-container">
+                <div class="circular-buffer-spinner"></div>
+                <div class="circular-buffer-title">Calculating Chance of Landslide...</div>
+                <div class="circular-buffer-subtitle">Executing 8-Feature Random Forest Machine Learning Inference</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        import time
+        time.sleep(0.45)
+
+        if exec_mode == "Direct Model Artifact":
+            pred_result = client.direct_predict(
+                latitude=selected_cell["latitude"],
+                longitude=selected_cell["longitude"],
+                elevation_m=in_elev,
+                slope_deg=in_slope,
+                aspect_deg=in_aspect,
+                rainfall_mm=in_rain,
+                rainfall_7day_antecedent_mm=in_ante,
+                rainfall_event_era5_mm=in_era5,
+                soil_clay_pct=in_clay,
+                soil_sand_pct=in_sand,
+            )
+        else:
+            pred_result = client.predict_via_api(
+                cell_code=selected_cell_code,
+                rainfall_mm=in_rain,
+                rainfall_7day=in_ante,
+                rainfall_era5=in_era5,
+                soil_clay=in_clay,
+                soil_sand=in_sand,
+            )
+
+        buf_ph.empty()
 
         st.markdown("---")
         st.markdown("### 📋 **Inference Results**")
@@ -579,7 +621,7 @@ with tab5:
 st.markdown("---")
 st.markdown(
     "<div style='text-align: center; color: #64748B; font-size: 0.85rem; padding: 10px;'>"
-    "Plan-A Geospatial Landslide Early-Warning System | Powered by FastAPI, Scikit-Learn Random Forest, and Streamlit"
+    "SlopeGuard Geospatial Landslide Early-Warning System | Powered by FastAPI, Scikit-Learn Random Forest, and Streamlit"
     "</div>",
     unsafe_allow_html=True,
 )

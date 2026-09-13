@@ -1,4 +1,4 @@
-# Plan-A: Geospatial Landslide Risk & Early-Warning Platform
+# SlopeGuard: Geospatial Landslide Risk & Early-Warning Platform
 
 [![CI](https://github.com/ZigzagDeck/Plan-A/actions/workflows/ci.yml/badge.svg)](https://github.com/ZigzagDeck/Plan-A/actions/workflows/ci.yml)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
@@ -7,7 +7,8 @@
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.5%2B-F7931E.svg)](https://scikit-learn.org/)
 [![PostGIS](https://img.shields.io/badge/PostGIS-16--3.4-336791.svg)](https://postgis.net/)
 
-**Plan-A** is an operational geospatial landslide risk estimation and early-warning decision-support platform designed for disaster management authorities, emergency responders, and watershed monitoring teams.
+**SlopeGuard** is an operational geospatial landslide risk estimation and early-warning decision-support platform designed for disaster management authorities, emergency responders, and watershed monitoring teams.
+
 
 The platform integrates a checksum-verified **8-variable Random Forest ML inference engine** trained on the Geological Survey of India (GSI) North-Eastern Region (NER) dataset, a **FastAPI backend** with PostGIS spatial indexing, an automated **alert lifecycle & notification engine**, and a modern **Streamlit GIS Dashboard**.
 

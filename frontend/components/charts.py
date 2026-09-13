@@ -1,4 +1,5 @@
-"""Plotly chart utilities for Plan-A Streamlit Dashboard."""
+"""Plotly chart utilities for SlopeGuard Streamlit Dashboard."""
+
 
 from typing import Any
 

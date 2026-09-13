@@ -1,4 +1,4 @@
-"""API and ML Integration Client for Plan-A Streamlit Dashboard.
+"""API and ML Integration Client for SlopeGuard Streamlit Dashboard.
 Handles REST requests to FastAPI and provides direct access to the real
 Random Forest ML model artifact.
 """
@@ -22,6 +22,7 @@ DEFAULT_API_URL = "http://127.0.0.1:8000"
 
 # Standard North-Eastern Region Landslide Risk Cells (Papum Pare & Subansiri, Arunachal Pradesh)
 SAMPLE_CELLS = [
+
     {
         "cell_code": "NER-CELL-A17",
         "name": "Papum Pare Hill Section",
@@ -140,7 +141,7 @@ SAMPLE_ASSETS = [
 ]
 
 
-class PlanAClient:
+class SlopeGuardClient:
     """Synchronous & async client with real ML artifact fallback."""
 
     def __init__(self, base_url: str = DEFAULT_API_URL):
@@ -390,3 +391,8 @@ class PlanAClient:
                 return {"success": False, "error": res.text}
         except Exception as e:
             return {"success": False, "error": str(e)}
+
+
+# Backward compatibility alias
+PlanAClient = SlopeGuardClient
+
