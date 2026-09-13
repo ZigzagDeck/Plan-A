@@ -2,47 +2,62 @@ import asyncio
 from pathlib import Path
 
 from app.schemas.prediction import ModelFeatures
-from app.services.model_gateway import ArtifactModelGateway, MockModelGateway
+from app.services.model_gateway import ArtifactModelGateway
 
 ARTIFACT_DIR = Path(__file__).resolve().parents[1] / "app" / "model_artifacts"
 
 
-def test_mock_gateway_obeys_the_agreed_model_contract() -> None:
+def test_artifact_gateway_obeys_the_agreed_model_contract() -> None:
+    gateway = ArtifactModelGateway(
+        ARTIFACT_DIR / "landslide_model.joblib",
+        ARTIFACT_DIR / "model_manifest.json",
+    )
     features = ModelFeatures(
         latitude=27.19343,
         longitude=93.78098,
-        elevation_m=213,
-        slope_deg=50.76,
-        aspect_deg=22.93,
-        rainfall_mm=115.34,
+        elevation_m=850.0,
+        slope_deg=45.0,
+        aspect_deg=180.0,
+        rainfall_mm=180.0,
+        rainfall_7day_antecedent_mm=220.0,
+        rainfall_event_era5_mm=120.0,
+        soil_clay_pct=35.0,
+        soil_sand_pct=30.0,
     )
 
-    prediction = asyncio.run(MockModelGateway().predict(features))
+    prediction = asyncio.run(gateway.predict(features))
 
-    assert prediction.probability == 0.87
-    assert prediction.predicted_class == 1
-    assert prediction.drivers == ["High rainfall", "Steep slope"]
+    assert 0 <= prediction.probability <= 1
+    assert prediction.predicted_class in (0, 1)
+    assert isinstance(prediction.drivers, list)
+    assert len(prediction.drivers) > 0
 
 
-async def assert_rainfall_changes_demo_risk() -> None:
-    gateway = MockModelGateway()
+async def assert_rainfall_changes_artifact_risk() -> None:
+    gateway = ArtifactModelGateway(
+        ARTIFACT_DIR / "landslide_model.joblib",
+        ARTIFACT_DIR / "model_manifest.json",
+    )
     static = {
         "latitude": 27.19343,
         "longitude": 93.78098,
-        "elevation_m": 213,
-        "slope_deg": 50.76,
-        "aspect_deg": 22.93,
+        "elevation_m": 750.0,
+        "slope_deg": 40.0,
+        "aspect_deg": 180.0,
+        "rainfall_7day_antecedent_mm": 100.0,
+        "rainfall_event_era5_mm": 50.0,
+        "soil_clay_pct": 32.0,
+        "soil_sand_pct": 30.0,
     }
 
-    baseline = await gateway.predict(ModelFeatures(**static, rainfall_mm=30))
-    simulated = await gateway.predict(ModelFeatures(**static, rainfall_mm=90))
+    baseline = await gateway.predict(ModelFeatures(**static, rainfall_mm=10.0))
+    simulated = await gateway.predict(ModelFeatures(**static, rainfall_mm=250.0))
 
-    assert baseline.probability == 0.57
-    assert simulated.probability == 0.78
+    assert simulated.probability >= baseline.probability
 
 
-def test_mock_gateway_responds_to_rainfall_scenarios() -> None:
-    asyncio.run(assert_rainfall_changes_demo_risk())
+def test_artifact_gateway_responds_to_rainfall_scenarios() -> None:
+    asyncio.run(assert_rainfall_changes_artifact_risk())
 
 
 def test_artifact_gateway_loads_reviewed_bundle_and_separates_scenarios() -> None:

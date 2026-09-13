@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     app_version: str = "0.2.0"
     database_url: str = "postgresql+psycopg://plan_a:plan_a_local@localhost:5432/plan_a"
     database_echo: bool = False
-    model_provider: Literal["mock", "artifact"] = "mock"
+    model_provider: Literal["artifact"] = "artifact"
     model_artifact_path: Path = (
         Path(__file__).resolve().parents[1] / "model_artifacts" / "landslide_model.joblib"
     )

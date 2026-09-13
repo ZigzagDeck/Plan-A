@@ -40,7 +40,8 @@ The reviewed artifact adapter also accepts these enriched fields:
 
 They are optional during the MVP transition. If omitted, the adapter uses training
 medians recorded in the checksum-verified manifest, which is reduced-context inference.
-Set `MODEL_PROVIDER=artifact` to use the reviewed model. The returned probability is a
-classifier score for class `1`, not a calibrated guarantee that a landslide will occur.
-Driver strings are transparent percentile rules, not SHAP values. `MockModelGateway`
-remains available only as an explicit local/test fallback.
+`ArtifactModelGateway` is the active model adapter integrated with the backend.
+The returned probability is a classifier score for class `1`, not a calibrated guarantee
+that a landslide will occur. Driver strings are transparent percentile rules, not SHAP values.
+`MockModelGateway` has been completely replaced with the real trained model bundle.
+
