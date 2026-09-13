@@ -60,7 +60,7 @@ async def assert_alert_lifecycle_api() -> None:
                 "/api/v1/alerts",
                 params={
                     "status": "ACTIVE",
-                    "severity": "CRITICAL",
+                    "severity": "HIGH",
                     "cell_code": cell_code,
                 },
             )
@@ -112,7 +112,7 @@ async def assert_alert_lifecycle_api() -> None:
 
             next_prediction = await client.post(
                 "/api/v1/predict",
-                json={"cell_code": cell_code, "rainfall_mm": 120},
+                json={"cell_code": cell_code, "rainfall_mm": 150},
             )
             assert next_prediction.status_code == 201
             assert next_prediction.json()["alert"]["action"] == "CREATED"

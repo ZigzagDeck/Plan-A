@@ -29,11 +29,10 @@ uvicorn app.main:app --app-dir backend --reload
 Open <http://127.0.0.1:8000/health> or the generated API documentation at
 <http://127.0.0.1:8000/docs>.
 
-The direct development command uses the deterministic mock unless
-`MODEL_PROVIDER=artifact` is exported. Docker Compose enables the checksum-verified
-Random Forest artifact by default. Optional antecedent-rainfall and soil inputs improve
-the eight-feature prediction; omitted values use training medians recorded in the model
-manifest and should be treated as reduced-context inference.
+The application uses the checksum-verified Random Forest model artifact by default.
+Optional antecedent-rainfall and soil inputs improve the eight-feature prediction;
+omitted values use training medians recorded in the model manifest and are treated as
+reduced-context inference.
 
 `/health` is a liveness probe and does not touch the database. `/health/ready`
 checks database availability and should be used as the deployment readiness probe.
